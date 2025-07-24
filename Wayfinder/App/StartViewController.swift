@@ -2,9 +2,8 @@ import UIKit
 import SwiftUI
 import OSLog
 
-fileprivate let logger = Logger(subsystem: #file, category: "StartViewController")
-
 final class StartViewController: UIViewController {
+    private let logger = Logger(subsystem: URL(filePath: #file).lastPathComponent, category: "StartViewController")
 
     // step 1:
     let sideBarTransition = SideBarTransition()
@@ -12,16 +11,19 @@ final class StartViewController: UIViewController {
     var customTransitionEnabled: Bool = true
 
     override func viewDidAppear(_ animated: Bool) {
-        logger.log(#function)
+        super.viewDidAppear(animated)
+        logger.log("\(Self.self):\(#function)")
     }
 
     override func viewDidDisappear(_ animated: Bool) {
-        logger.log(#function)
+        super.viewDidDisappear(animated)
+        logger.log("\(Self.self):\(#function)")
     }
 
     lazy var transitionToggle: UIView = {
         let label = UILabel(frame: .zero)
         label.text = "Custom transition"
+        label.textColor = .darkText
 
         let toggle = UISwitch()
         toggle.isOn = customTransitionEnabled
@@ -34,7 +36,7 @@ final class StartViewController: UIViewController {
         container.layer.cornerRadius = 24
 
         let background = UIView(frame: .zero)
-        background.backgroundColor = .systemYellow
+        background.backgroundColor = UIColor(resource: .menuHighlight)
         background.addSubview(container)
         background.layer.cornerRadius = 24
         background.layer.borderWidth = 1
@@ -59,16 +61,17 @@ final class StartViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        logger.log("\(Self.self):\(#function)")
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "paintbrush.fill"),
+            image: UIImage(systemName: "line.3.horizontal"),
             style: .plain,
             target: self,
-            action: #selector(profileButtonTapped)
+            action: #selector(menuButtonTapped)
         )
 
-        view.backgroundColor = .init(named: "start")
-        title = "Start"
+        view.backgroundColor = .init(resource: .menuBackground)
+        title = "Wayfinder"
         navigationController?.navigationBar.prefersLargeTitles = true
 
         view.addSubview(randomText)
@@ -85,22 +88,22 @@ final class StartViewController: UIViewController {
 
         // step 2:
         sideBarTransition.addPresentingGesture(on: view) { [weak self] in
-            self?.showViewController()
+            self?.showSideBar()
         }
     }
 
-    func showViewController() {
+    func showSideBar() {
+        logger.log("\(Self.self):\(#function)")
+        
         // step 3:
-
-        // Get a view controller from the FrameBridge
-        let viewController = SideBarViewController()
+        let sideBarViewController = SideBarViewController()
 
         if customTransitionEnabled {
-            viewController.transitioningDelegate = sideBarTransition
-            viewController.modalPresentationStyle = .custom
+            sideBarViewController.transitioningDelegate = sideBarTransition
+            sideBarViewController.modalPresentationStyle = .custom
         }
 
-        present(viewController, animated: true)
+        present(sideBarViewController, animated: true)
     }
 
     @objc func toggleDidChange(_ sender: UISwitch) {
@@ -108,7 +111,7 @@ final class StartViewController: UIViewController {
         customTransitionEnabled = sender.isOn
     }
     
-    @objc func profileButtonTapped(sender: Any?) {
-        showViewController()
+    @objc func menuButtonTapped(sender: Any?) {
+        showSideBar()
     }
 }

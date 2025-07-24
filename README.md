@@ -15,9 +15,7 @@ This project is a playground to find approaches to integrating a "slide-out pane
 - The view lifecycle events (`viewDidLoad`, `viewDidAppear`, `viewDidDisappear`, and friends) must be kept intact
 - The side-menu must be deallocated after dimiss
 - The side-menu is supposed to 
-    - push new view controllers onto the root navigation controller of the app/tab bar controller
-    - push new view controllers onto its own navigation controller
-    - be integrated into all root view controllers of a tab bar controller 
+    - push new view controllers onto the root navigation controller of the app/tab bar controller 
     - be accessible via interactive gesture, plus tap on a navigation bar button item
 
 ## Provided approach

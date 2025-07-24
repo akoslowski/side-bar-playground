@@ -5,6 +5,15 @@ class SideBarPresentationController: UIPresentationController {
     private lazy var dimmingView = DimmingView()
     private let dismissTransition: SideBarDismissTransition
     private let dismissingPan: (UIPanGestureRecognizer) -> Void
+    private lazy var a11yDismissButton: UIButton = { 
+        let button = UIButton(
+            primaryAction: UIAction(handler: { [weak self] action in
+                self?.handleTap()
+            })
+        )
+        button.accessibilityLabel = "Dismiss"
+        return button
+    }()
 
     init(
         presentedViewController: UIViewController,
@@ -25,6 +34,7 @@ class SideBarPresentationController: UIPresentationController {
         super.presentationTransitionWillBegin()
 
         presentedView?.layer.masksToBounds = true
+        presentedView?.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner]
         presentedView?.layer.cornerRadius = 20
 
         guard let containerView else { return }
@@ -39,11 +49,17 @@ class SideBarPresentationController: UIPresentationController {
             dimmingView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
         ])
 
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-        dimmingView.addGestureRecognizer(tapGesture)
+        containerView.addSubview(a11yDismissButton)
+        a11yDismissButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            a11yDismissButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            a11yDismissButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            a11yDismissButton.topAnchor.constraint(equalTo: containerView.topAnchor),
+            a11yDismissButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+        ])
 
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleDismissingPan))
-        dimmingView.addGestureRecognizer(panGesture)
+        a11yDismissButton.addGestureRecognizer(panGesture)
 
         dimmingView.alpha = 0.0
         presentedViewController.transitionCoordinator?.animate { [weak self] _ in
@@ -67,8 +83,8 @@ class SideBarPresentationController: UIPresentationController {
 // MARK: - Dimming View
 
 class DimmingView: UIView {
-    override func traitCollectionDidChange(_ previous: UITraitCollection?) {
-        super.traitCollectionDidChange(previous)
+    override func layoutSubviews() {
+        super.layoutSubviews()
         backgroundColor = UIColor.black.withAlphaComponent(0.7)
     }
 }

@@ -1,6 +1,6 @@
 import UIKit
 
-class SideBarPresentTransition: UIPercentDrivenInteractiveTransition, UIViewControllerAnimatedTransitioning {
+final class SideBarPresentTransition: UIPercentDrivenInteractiveTransition, UIViewControllerAnimatedTransitioning {
 
     private var animator: UIViewPropertyAnimator?
 
@@ -49,18 +49,22 @@ class SideBarPresentTransition: UIPercentDrivenInteractiveTransition, UIViewCont
         }
 
         animator.addCompletion { position in
-            switch position {
-            case .end where context.transitionWasCancelled:
-                context.completeTransition(false)
-            case .end:
-                context.completeTransition(true)
-            default:
-                context.completeTransition(false)
+            Task { @MainActor in
+                switch position {
+                case .end where context.transitionWasCancelled:
+                    context.completeTransition(false)
+                case .end:
+                    context.completeTransition(true)
+                default:
+                    context.completeTransition(false)
+                }
             }
         }
 
         animator.addCompletion { [unowned self] _ in
-            self.animator = nil
+            Task { @MainActor in
+                self.animator = nil
+            }
         }
 
         return animator
