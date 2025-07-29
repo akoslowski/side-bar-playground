@@ -26,7 +26,7 @@ struct SideBarContentView: View {
                     Label("Settings", systemImage: "gearshape")
                 }
             }
-            .buttonStyle(MenuButtonStyle())
+            .buttonStyle(SideBarButtonStyle())
         }
         .background(Color(.SideBar.background))
         .overlay(alignment: .topTrailing) {
@@ -43,7 +43,7 @@ struct SideBarContentView: View {
 
 // MARK: -
 
-struct MenuLabelStyle: LabelStyle {
+struct SideBarLabelStyle: LabelStyle {
     @ScaledMetric var fontSize: CGFloat = 28.0
 
     func makeBody(configuration: Configuration) -> some View {
@@ -65,11 +65,11 @@ struct MenuLabelStyle: LabelStyle {
     }
 }
 
-struct MenuButtonStyle: ButtonStyle {
-    func makeBody(configuration: Self.Configuration) -> some View {
+struct SideBarButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
         configuration
             .label
-            .labelStyle(MenuLabelStyle())
+            .labelStyle(SideBarLabelStyle())
             .padding(12)
             .foregroundStyle(
                 configuration.isPressed

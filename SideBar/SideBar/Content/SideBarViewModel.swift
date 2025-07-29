@@ -70,7 +70,7 @@ struct DestinationView: View {
             Color(.detailBackground)
             Label(titleKey, systemImage: systemImage)
         }
-        .labelStyle(MenuLabelStyle())
+        .labelStyle(SideBarLabelStyle())
         .ignoresSafeArea()
     }
 }

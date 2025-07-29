@@ -23,6 +23,7 @@ final class StartViewController: UIViewController {
     lazy var transitionToggle: UIView = {
         let label = UILabel(frame: .zero)
         label.text = "SideBar transition"
+        label.font = .preferredFont(forTextStyle: .title1)
 
         let toggle = UISwitch()
         toggle.isOn = isSideBarTransitionEnabled
@@ -38,7 +39,8 @@ final class StartViewController: UIViewController {
         background.backgroundColor = UIColor(resource: .defaultBackground)
         background.addSubview(container)
         background.layer.cornerRadius = 24
-        background.layer.borderWidth = 1
+        background.layer.borderWidth = 4
+        background.layer.borderColor = UIColor(resource: .accent).cgColor
         background.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             container.topAnchor.constraint(equalTo: background.topAnchor, constant: 20),
@@ -69,7 +71,7 @@ final class StartViewController: UIViewController {
             image: UIImage(systemName: "line.3.horizontal"),
             style: .plain,
             target: self,
-            action: #selector(menuButtonTapped)
+            action: #selector(sideBarButtonTapped)
         )
 
         view.backgroundColor = .init(resource: .defaultBackground)
@@ -112,7 +114,7 @@ final class StartViewController: UIViewController {
         isSideBarTransitionEnabled = sender.isOn
     }
     
-    @objc func menuButtonTapped(sender: Any?) {
+    @objc func sideBarButtonTapped(sender: Any?) {
         showSideBar()
     }
 }
