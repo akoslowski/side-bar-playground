@@ -36,7 +36,7 @@ final class SideBarPresentTransition: UIPercentDrivenInteractiveTransition, UIVi
             toView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             toView.topAnchor.constraint(equalTo: containerView.topAnchor),
             toView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-            toView.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: multiplier)
+            toView.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: multiplier),
         ])
 
         toView.transform = CGAffineTransform(translationX: -containerView.frame.width * multiplier, y: 0.0)

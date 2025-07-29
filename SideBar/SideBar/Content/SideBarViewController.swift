@@ -55,3 +55,9 @@ final class SideBarViewController: UIHostingController<SideBarContentView> {
         logger.log("\(Self.self):\(#function)")
     }
 }
+
+// MARK: -
+
+#Preview {
+    UINavigationController(rootViewController: StartViewController())
+}

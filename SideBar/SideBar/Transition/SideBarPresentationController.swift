@@ -5,7 +5,7 @@ class SideBarPresentationController: UIPresentationController {
     private lazy var dimmingView = DimmingView()
     private let dismissTransition: SideBarDismissTransition
     private let dismissingPan: (UIPanGestureRecognizer) -> Void
-    private lazy var a11yDismissButton: UIButton = { 
+    private lazy var a11yDismissButton: UIButton = {
         let button = UIButton(
             primaryAction: UIAction(handler: { [weak self] action in
                 self?.handleTap()

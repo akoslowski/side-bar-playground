@@ -73,14 +73,14 @@ struct SideBarButtonStyle: ButtonStyle {
             .padding(12)
             .foregroundStyle(
                 configuration.isPressed
-                ? Color(.SideBar.textHighlight) : Color(.SideBar.text)
+                    ? Color(.SideBar.textHighlight) : Color(.SideBar.text)
             )
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(alignment: .leading) {
                 RoundedRectangle(cornerRadius: 8)
                     .foregroundStyle(
                         configuration.isPressed
-                        ? Color(.SideBar.highlight) : Color(.SideBar.background)
+                            ? Color(.SideBar.backgroundHighlight) : Color(.SideBar.background)
                     )
             }
             .padding(.horizontal)
@@ -90,11 +90,5 @@ struct SideBarButtonStyle: ButtonStyle {
 // MARK: -
 
 #Preview {
-    NavigationStack {
-        SideBarContentView(viewModel: .init())
-    }
-}
-
-#Preview {
-    UINavigationController(rootViewController: StartViewController())
+    SideBarContentView(viewModel: .init())
 }

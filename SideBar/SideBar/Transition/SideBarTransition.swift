@@ -13,7 +13,11 @@ public class SideBarTransition: NSObject, UIViewControllerTransitioningDelegate,
         self.setUpPresentingPanGesture(on: view)
     }
 
-    public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+    public func presentationController(
+        forPresented presented: UIViewController,
+        presenting: UIViewController?,
+        source: UIViewController
+    ) -> UIPresentationController? {
 
         presentedViewController = presented
         setUpDismissingPanGesture(on: presented.view)
@@ -26,11 +30,17 @@ public class SideBarTransition: NSObject, UIViewControllerTransitioningDelegate,
         )
     }
 
-    public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func animationController(
+        forPresented presented: UIViewController,
+        presenting: UIViewController,
+        source: UIViewController
+    ) -> UIViewControllerAnimatedTransitioning? {
         presentTransition
     }
 
-    public func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    public func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning)
+        -> UIViewControllerInteractiveTransitioning?
+    {
         presentTransition
     }
 
@@ -38,11 +48,16 @@ public class SideBarTransition: NSObject, UIViewControllerTransitioningDelegate,
         dismissTransition
     }
 
-    public func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    public func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning)
+        -> UIViewControllerInteractiveTransitioning?
+    {
         dismissTransition
     }
 
-    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    public func gestureRecognizer(
+        _ gestureRecognizer: UIGestureRecognizer,
+        shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer
+    ) -> Bool {
         // https://developer.apple.com/documentation/uikit/touches_presses_and_gestures/coordinating_multiple_gesture_recognizers/preferring_one_gesture_over_another
         // 1. gestureRecognizer is always UIScreenEdgePanGestureRecognizer since we only attach the delegate to it.
         // 2. gestureRecognizer should fail before any other gesture recognizer is triggered.
