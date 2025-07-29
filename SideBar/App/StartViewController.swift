@@ -23,7 +23,7 @@ final class StartViewController: UIViewController {
     lazy var transitionToggle: UIView = {
         let label = UILabel(frame: .zero)
         label.text = "SideBar transition"
-        label.font = .preferredFont(forTextStyle: .title1)
+        label.font = .preferredFont(forTextStyle: .title3)
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 0
 
@@ -32,11 +32,10 @@ final class StartViewController: UIViewController {
         toggle.addTarget(self, action: #selector(toggleDidChange), for: .valueChanged)
 
         let container = UIStackView(arrangedSubviews: [label, toggle])
-        container.axis = .horizontal
+        container.axis = traitCollection.preferredContentSizeCategory.isAccessibilityCategory ? .vertical : .horizontal
         container.spacing = 12
         container.alignment = .center
         container.translatesAutoresizingMaskIntoConstraints = false
-        container.layer.cornerRadius = 24
 
         let background = UIView(frame: .zero)
         background.backgroundColor = UIColor(resource: .defaultBackground)

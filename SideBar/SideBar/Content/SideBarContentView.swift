@@ -6,20 +6,17 @@ struct SideBarContentView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 0) {
                 Button {
                     viewModel.action.send(.accountTapped)
                 } label: {
                     Label("Account", systemImage: "person.crop.square")
                 }
-                .padding(.top, 32)
-
                 Button {
                     viewModel.action.send(.favoritesTapped)
                 } label: {
                     Label("Favorites", systemImage: "heart")
                 }
-
                 Button {
                     viewModel.action.send(.settingsTapped)
                 } label: {
@@ -27,17 +24,17 @@ struct SideBarContentView: View {
                 }
             }
             .buttonStyle(SideBarButtonStyle())
+            .safeAreaInset(edge: .top, alignment: .trailing) {
+                Button {
+                    viewModel.action.send(.dismissTapped)
+                } label: {
+                    Image(systemName: "xmark")
+                        .padding(18)
+                }
+                .accessibilityLabel("Dismiss")
+            }
         }
         .background(Color(.SideBar.background))
-        .overlay(alignment: .topTrailing) {
-            Button {
-                viewModel.action.send(.dismissTapped)
-            } label: {
-                Image(systemName: "xmark")
-                    .padding(18)
-            }
-            .accessibilityLabel("Dismiss")
-        }
     }
 }
 
