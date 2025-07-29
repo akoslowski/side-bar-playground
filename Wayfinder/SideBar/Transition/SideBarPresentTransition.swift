@@ -4,8 +4,6 @@ final class SideBarPresentTransition: UIPercentDrivenInteractiveTransition, UIVi
 
     private var animator: UIViewPropertyAnimator?
 
-    private let width = 300.0
-
     override init() {
         super.init()
         wantsInteractiveStart = false
@@ -20,7 +18,6 @@ final class SideBarPresentTransition: UIPercentDrivenInteractiveTransition, UIVi
     }
 
     func transitionAnimator(using context: UIViewControllerContextTransitioning) -> UIViewImplicitlyAnimating {
-
         guard let toView = context.view(forKey: .to) else {
             return UIViewPropertyAnimator()
         }
@@ -32,14 +29,17 @@ final class SideBarPresentTransition: UIPercentDrivenInteractiveTransition, UIVi
 
         toView.translatesAutoresizingMaskIntoConstraints = false
 
+        let shouldUseFullWidth = containerView.traitCollection.preferredContentSizeCategory.isAccessibilityCategory
+        let multiplier = shouldUseFullWidth ? 1.0 : 0.65
+
         NSLayoutConstraint.activate([
             toView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             toView.topAnchor.constraint(equalTo: containerView.topAnchor),
             toView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-            toView.widthAnchor.constraint(equalToConstant: width),
+            toView.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: multiplier)
         ])
 
-        toView.transform = CGAffineTransform(translationX: -width, y: 0.0)
+        toView.transform = CGAffineTransform(translationX: -containerView.frame.width * multiplier, y: 0.0)
 
         let animator = UIViewPropertyAnimator(duration: duration, curve: .easeOut)
         self.animator = animator

@@ -3,12 +3,22 @@ import SwiftUI
 import OSLog
 
 final class SideBarViewController: UIHostingController<SideBarContentView> {
-    private let logger = Logger(subsystem: URL(filePath: #file).lastPathComponent, category: "SideBarViewController")
+    private let logger = Logger()
 
     let viewModel = SideBarViewModel()
 
     init() {
         super.init(rootView: SideBarContentView(viewModel: viewModel))
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        logger.log("\(Self.self):\(#function)")
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        logger.log("\(Self.self):\(#function)")
     }
 
     override func viewDidLoad() {
@@ -21,11 +31,11 @@ final class SideBarViewController: UIHostingController<SideBarContentView> {
             guard let self else { return }
 
             if let navigationController = presentingViewController as? UINavigationController {
-                // Simulator
+                // e.g. Simulator
                 navigationController.pushViewController(viewController, animated: false)
                 dismiss(animated: true)
             } else if let presentingViewController {
-                // SwiftUI previews
+                // e.g. SwiftUI previews
                 dismiss(animated: true)
                 presentingViewController.present(viewController, animated: true)
             }

@@ -17,7 +17,7 @@ import UIKit
     var dismissSideBar: (() -> Void)?
 
     private var subscriptions = Set<AnyCancellable>()
-    private let logger = Logger(subsystem: URL(filePath: #file).lastPathComponent, category: "SideBarViewModel")
+    private let logger = Logger()
 
     init() {
         action.sink { [weak self] action in
@@ -67,10 +67,10 @@ struct DestinationView: View {
 
     var body: some View {
         ZStack {
-            Color(.menuHighlight)
+            Color(.detailBackground)
             Label(titleKey, systemImage: systemImage)
         }
-        .labelStyle(MenuLabelStyle(textColor: .menuDarkText))
+        .labelStyle(MenuLabelStyle())
         .ignoresSafeArea()
     }
 }

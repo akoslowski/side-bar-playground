@@ -28,7 +28,7 @@ struct SideBarContentView: View {
             }
             .buttonStyle(MenuButtonStyle())
         }
-        .background(Color(.menuBackground))
+        .background(Color(.SideBar.background))
         .overlay(alignment: .topTrailing) {
             Button {
                 viewModel.action.send(.dismissTapped)
@@ -45,11 +45,6 @@ struct SideBarContentView: View {
 
 struct MenuLabelStyle: LabelStyle {
     @ScaledMetric var fontSize: CGFloat = 28.0
-    let textColor: ColorResource
-
-    init(textColor: ColorResource = .menuText) {
-        self.textColor = textColor
-    }
 
     func makeBody(configuration: Configuration) -> some View {
         ViewThatFits(in: .horizontal) {
@@ -66,7 +61,6 @@ struct MenuLabelStyle: LabelStyle {
                 .title
                 .padding(.horizontal)
         }
-        .foregroundStyle(Color(textColor))
         .font(.system(size: fontSize, weight: .bold, design: .rounded))
     }
 }
@@ -79,14 +73,14 @@ struct MenuButtonStyle: ButtonStyle {
             .padding(12)
             .foregroundStyle(
                 configuration.isPressed
-                    ? Color(.menuBackground) : Color(.menuText)
+                ? Color(.SideBar.textHighlight) : Color(.SideBar.text)
             )
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(alignment: .leading) {
                 RoundedRectangle(cornerRadius: 8)
                     .foregroundStyle(
                         configuration.isPressed
-                            ? Color(.menuHighlight) : Color(.menuBackground)
+                        ? Color(.SideBar.highlight) : Color(.SideBar.background)
                     )
             }
             .padding(.horizontal)

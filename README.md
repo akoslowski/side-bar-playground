@@ -1,20 +1,12 @@
-# Wayfinder
+# SideBarPlayground
 
-> wayfinder | ˈweɪfʌɪndə |
->
-> noun
->
-> a sign, landmark, or other indicator used to assist people in navigating to a particular location: the chimney stacks have been a wayfinder for nearly five decades.
-> • a person navigating to a particular location: the wilderness wayfinder should strive to be proficient at both map and compass work.
-
-## Abstract
-This project is a playground to find approaches to integrating a "slide-out panel navigation" / "side menu" / "hamburger menu". It is a mixture of SwiftUI and UIKit to show how an integration into an UIKit-based app could work.
+This project is a playground to find approaches to integrating a custom side-bar, a.k.a. "slide-out panel navigation" / "side menu" / "hamburger menu". It is a mixture of SwiftUI and UIKit to show how an integration into an UIKit-based app could work.
 
 ## Boundary Conditions
 
-- The view lifecycle events (`viewDidLoad`, `viewDidAppear`, `viewDidDisappear`, and friends) must be kept intact
-- The side-menu must be deallocated after dimiss
-- The side-menu is supposed to 
+- The view lifecycle events (`viewDidLoad`, `viewDidAppear`, `viewDidDisappear`, etc.) must be kept intact
+- The side-bar must be deallocated after dimiss
+- The side-bar is supposed to 
     - push new view controllers onto the root navigation controller of the app/tab bar controller 
     - be accessible via interactive gesture, plus tap on a navigation bar button item
 

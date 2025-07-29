@@ -3,12 +3,12 @@ import SwiftUI
 import OSLog
 
 final class StartViewController: UIViewController {
-    private let logger = Logger(subsystem: URL(filePath: #file).lastPathComponent, category: "StartViewController")
+    private let logger = Logger()
 
     // step 1:
     let sideBarTransition = SideBarTransition()
 
-    var customTransitionEnabled: Bool = true
+    var isSideBarTransitionEnabled: Bool = true
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -22,11 +22,10 @@ final class StartViewController: UIViewController {
 
     lazy var transitionToggle: UIView = {
         let label = UILabel(frame: .zero)
-        label.text = "Custom transition"
-        label.textColor = .darkText
+        label.text = "SideBar transition"
 
         let toggle = UISwitch()
-        toggle.isOn = customTransitionEnabled
+        toggle.isOn = isSideBarTransitionEnabled
         toggle.addTarget(self, action: #selector(toggleDidChange), for: .valueChanged)
 
         let container = UIStackView(arrangedSubviews: [label, toggle])
@@ -36,7 +35,7 @@ final class StartViewController: UIViewController {
         container.layer.cornerRadius = 24
 
         let background = UIView(frame: .zero)
-        background.backgroundColor = UIColor(resource: .menuHighlight)
+        background.backgroundColor = UIColor(resource: .defaultBackground)
         background.addSubview(container)
         background.layer.cornerRadius = 24
         background.layer.borderWidth = 1
@@ -50,11 +49,14 @@ final class StartViewController: UIViewController {
         return background
     }()
 
+    let words = ["lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit", "sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore", "magna", "aliqua", "enim", "ad", "minim", "veniam", "quis", "nostrud", "exercitation", "ullamco", "laboris", "nisi", "aliquip", "ex", "ea", "commodo", "consequat"]
+
     lazy var randomText: UIView = {
         let label = UILabel(frame: .zero)
-        label.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        label.text = (0...500).map { _ in words.randomElement() ?? "?" }.joined(separator: " ")
         label.numberOfLines = 0
         label.font = .preferredFont(forTextStyle: .title1)
+        label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -70,8 +72,8 @@ final class StartViewController: UIViewController {
             action: #selector(menuButtonTapped)
         )
 
-        view.backgroundColor = .init(resource: .menuBackground)
-        title = "Wayfinder"
+        view.backgroundColor = .init(resource: .defaultBackground)
+        title = "Start"
         navigationController?.navigationBar.prefersLargeTitles = true
 
         view.addSubview(randomText)
@@ -98,7 +100,7 @@ final class StartViewController: UIViewController {
         // step 3:
         let sideBarViewController = SideBarViewController()
 
-        if customTransitionEnabled {
+        if isSideBarTransitionEnabled {
             sideBarViewController.transitioningDelegate = sideBarTransition
             sideBarViewController.modalPresentationStyle = .custom
         }
@@ -107,11 +109,18 @@ final class StartViewController: UIViewController {
     }
 
     @objc func toggleDidChange(_ sender: UISwitch) {
-        logger.log("Is custom transition enabled? \(sender.isOn, format: .answer)")
-        customTransitionEnabled = sender.isOn
+        isSideBarTransitionEnabled = sender.isOn
     }
     
     @objc func menuButtonTapped(sender: Any?) {
         showSideBar()
     }
+}
+
+#Preview {
+    UINavigationController(rootViewController: StartViewController())
+}
+
+#Preview(traits: .landscapeLeft) {
+    UINavigationController(rootViewController: StartViewController())
 }
