@@ -2,10 +2,10 @@ import UIKit
 
 class SideBarPresentationController: UIPresentationController {
 
-    private lazy var dimmingView = DimmingView()
     private let dismissTransition: SideBarDismissTransition
     private let dismissingPan: (UIPanGestureRecognizer) -> Void
-    private lazy var a11yDismissButton: UIButton = {
+    private lazy var dimmingView = DimmingView()
+    private lazy var dismissButton: UIButton = {
         let button = UIButton(
             primaryAction: UIAction(handler: { [weak self] action in
                 self?.handleTap()
@@ -49,17 +49,17 @@ class SideBarPresentationController: UIPresentationController {
             dimmingView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
         ])
 
-        containerView.addSubview(a11yDismissButton)
-        a11yDismissButton.translatesAutoresizingMaskIntoConstraints = false
+        containerView.addSubview(dismissButton)
+        dismissButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            a11yDismissButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            a11yDismissButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            a11yDismissButton.topAnchor.constraint(equalTo: containerView.topAnchor),
-            a11yDismissButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            dismissButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            dismissButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            dismissButton.topAnchor.constraint(equalTo: containerView.topAnchor),
+            dismissButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
         ])
 
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleDismissingPan))
-        a11yDismissButton.addGestureRecognizer(panGesture)
+        dismissButton.addGestureRecognizer(panGesture)
 
         dimmingView.alpha = 0.0
         presentedViewController.transitionCoordinator?.animate { [weak self] _ in
