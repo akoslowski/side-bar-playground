@@ -32,7 +32,7 @@ final class StartViewController: UIViewController {
         toggle.addTarget(self, action: #selector(toggleDidChange), for: .valueChanged)
 
         let container = UIStackView(arrangedSubviews: [label, toggle])
-        container.axis = traitCollection.preferredContentSizeCategory.isAccessibilityCategory ? .vertical : .horizontal
+        container.axis = .vertical
         container.spacing = 12
         container.alignment = .center
         container.translatesAutoresizingMaskIntoConstraints = false
@@ -96,6 +96,7 @@ final class StartViewController: UIViewController {
             randomText.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
             transitionToggle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             transitionToggle.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            transitionToggle.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor)
         ])
 
         // step 2:
