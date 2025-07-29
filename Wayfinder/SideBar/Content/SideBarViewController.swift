@@ -2,9 +2,8 @@ import UIKit
 import SwiftUI
 import OSLog
 
-private let logger = Logger(subsystem: #file, category: "SideBarViewController")
-
-class SideBarViewController: UIHostingController<SideBarContentView> {
+final class SideBarViewController: UIHostingController<SideBarContentView> {
+    private let logger = Logger(subsystem: URL(filePath: #file).lastPathComponent, category: "SideBarViewController")
 
     let viewModel = SideBarViewModel()
 

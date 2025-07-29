@@ -6,8 +6,6 @@ import UIKit
 @MainActor final class SideBarViewModel {
 
     enum Action: String {
-        case viewAppeared
-        case viewDisappeared
         case accountTapped
         case favoritesTapped
         case settingsTapped
@@ -22,22 +20,12 @@ import UIKit
     private let logger = Logger(subsystem: URL(filePath: #file).lastPathComponent, category: "SideBarViewModel")
 
     init() {
-        setUpActionHandling()
-    }
-
-    func setUpActionHandling() {
         action.sink { [weak self] action in
             guard let self else { return }
 
             logger.log("\(Self.self):action:\(action.rawValue)")
 
             switch action {
-            case .viewAppeared:
-                break
-
-            case .viewDisappeared:
-                break
-
             case .accountTapped:
                 showDestination?(
                     UIHostingController(
@@ -71,6 +59,8 @@ import UIKit
     }
 }
 
+// MARK: -
+
 struct DestinationView: View {
     let titleKey: LocalizedStringKey
     let systemImage: String
@@ -80,7 +70,7 @@ struct DestinationView: View {
             Color(.menuHighlight)
             Label(titleKey, systemImage: systemImage)
         }
-        .labelStyle(MenuLabelStyle())
+        .labelStyle(MenuLabelStyle(textColor: .menuDarkText))
         .ignoresSafeArea()
     }
 }
