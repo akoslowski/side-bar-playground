@@ -97,7 +97,11 @@ public class SideBarTransition: NSObject, UIViewControllerTransitioningDelegate,
             presentTransition.cancel()
             presentTransition.wantsInteractiveStart = false
 
-        case .ended where percent > 0.5 || velocity > 0:
+        case .ended where percent > 0.5:
+            presentTransition.finish()
+            presentTransition.wantsInteractiveStart = false
+
+        case .ended where velocity > 0:
             presentTransition.finish()
             presentTransition.wantsInteractiveStart = false
 
@@ -129,7 +133,11 @@ public class SideBarTransition: NSObject, UIViewControllerTransitioningDelegate,
             dismissTransition.cancel()
             dismissTransition.wantsInteractiveStart = false
 
-        case .ended where percent > 0.5 || velocity > 0:
+        case .ended where percent > 0.5:
+            dismissTransition.finish()
+            dismissTransition.wantsInteractiveStart = false
+
+        case .ended where velocity > 0:
             dismissTransition.finish()
             dismissTransition.wantsInteractiveStart = false
 
