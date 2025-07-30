@@ -96,7 +96,7 @@ final class StartViewController: UIViewController {
             randomText.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
             transitionToggle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             transitionToggle.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            transitionToggle.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor)
+            transitionToggle.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor),
         ])
 
         // step 2:

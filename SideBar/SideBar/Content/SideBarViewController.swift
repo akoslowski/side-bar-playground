@@ -1,6 +1,6 @@
-import UIKit
-import SwiftUI
 import OSLog
+import SwiftUI
+import UIKit
 
 final class SideBarViewController: UIHostingController<SideBarContentView> {
     private let logger = Logger()
