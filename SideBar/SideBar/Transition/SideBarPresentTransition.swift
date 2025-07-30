@@ -29,17 +29,14 @@ final class SideBarPresentTransition: UIPercentDrivenInteractiveTransition, UIVi
 
         toView.translatesAutoresizingMaskIntoConstraints = false
 
-        let shouldUseFullWidth = containerView.traitCollection.preferredContentSizeCategory.isAccessibilityCategory
-        let multiplier = shouldUseFullWidth ? 1.0 : 0.65
-
         NSLayoutConstraint.activate([
             toView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             toView.topAnchor.constraint(equalTo: containerView.topAnchor),
             toView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-            toView.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: multiplier),
+            toView.widthAnchor.constraint(lessThanOrEqualTo: containerView.widthAnchor)
         ])
 
-        toView.transform = CGAffineTransform(translationX: -containerView.frame.width * multiplier, y: 0.0)
+        toView.transform = CGAffineTransform(translationX: -toView.intrinsicContentSize.width, y: 0.0)
 
         let animator = UIViewPropertyAnimator(duration: duration, curve: .easeOut)
         self.animator = animator
