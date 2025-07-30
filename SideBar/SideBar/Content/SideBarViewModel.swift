@@ -29,21 +29,21 @@ import UIKit
             case .accountTapped:
                 showDestination?(
                     UIHostingController(
-                        rootView: DestinationView(titleKey: "Account", systemImage: "person.crop.square")
+                        rootView: DestinationView(titleKey: "Account", image: .accountIcon)
                     )
                 )
 
             case .favoritesTapped:
                 showDestination?(
                     UIHostingController(
-                        rootView: DestinationView(titleKey: "Favorites", systemImage: "heart")
+                        rootView: DestinationView(titleKey: "Favorites", image: .favoritesIcon)
                     )
                 )
 
             case .settingsTapped:
                 showDestination?(
                     UIHostingController(
-                        rootView: DestinationView(titleKey: "Settings", systemImage: "gearshape")
+                        rootView: DestinationView(titleKey: "Settings", image: .settingsIcon)
                     )
                 )
 
@@ -63,12 +63,12 @@ import UIKit
 
 struct DestinationView: View {
     let titleKey: LocalizedStringKey
-    let systemImage: String
+    let image: ImageResource
 
     var body: some View {
         ZStack {
             Color(.detailBackground)
-            Label(titleKey, systemImage: systemImage)
+            Label(titleKey, image: image)
         }
         .labelStyle(SideBarLabelStyle())
         .ignoresSafeArea()
