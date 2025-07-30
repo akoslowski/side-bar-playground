@@ -10,17 +10,17 @@ struct SideBarContentView: View {
                 Button {
                     viewModel.action.send(.accountTapped)
                 } label: {
-                    Label("Account", image: .accountIcon)
+                    Label("Account", image: .SideBarIcon.account)
                 }
                 Button {
                     viewModel.action.send(.favoritesTapped)
                 } label: {
-                    Label("Favorites", image: .favoritesIcon)
+                    Label("Favorites", image: .SideBarIcon.favorites)
                 }
                 Button {
                     viewModel.action.send(.settingsTapped)
                 } label: {
-                    Label("Settings", image: .settingsIcon)
+                    Label("Settings", image: .SideBarIcon.settings)
                 }
             }
             .buttonStyle(SideBarButtonStyle())

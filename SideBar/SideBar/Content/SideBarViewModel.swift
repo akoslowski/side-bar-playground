@@ -29,21 +29,21 @@ import UIKit
             case .accountTapped:
                 showDestination?(
                     UIHostingController(
-                        rootView: DestinationView(titleKey: "Account", image: .accountIcon)
+                        rootView: DestinationView(titleKey: "Account", image: .SideBarIcon.account)
                     )
                 )
 
             case .favoritesTapped:
                 showDestination?(
                     UIHostingController(
-                        rootView: DestinationView(titleKey: "Favorites", image: .favoritesIcon)
+                        rootView: DestinationView(titleKey: "Favorites", image: .SideBarIcon.favorites)
                     )
                 )
 
             case .settingsTapped:
                 showDestination?(
                     UIHostingController(
-                        rootView: DestinationView(titleKey: "Settings", image: .settingsIcon)
+                        rootView: DestinationView(titleKey: "Settings", image: .SideBarIcon.settings)
                     )
                 )
 
