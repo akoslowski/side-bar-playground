@@ -1,8 +1,8 @@
 # SideBarPlayground
 
-This project is a playground to find approaches to integrating a custom side-bar, a.k.a. "slide-out panel navigation" / "side menu" / "hamburger menu". It is a mixture of SwiftUI and UIKit to show how an integration into an UIKit-based app could work.
+This project is a playground to find approaches to integrating a custom side-bar, a.k.a. "slide-out panel navigation" / "side menu" / "hamburger menu". It is a mix of `SwiftUI` and `UIKit` to show how an integration into a `UIKit`-based app could work.
 
-## Boundary Conditions
+## Why?
 
 - The view lifecycle events (`viewDidLoad`, `viewDidAppear`, `viewDidDisappear`, etc.) must be kept intact
 - The side-bar must be deallocated after dimiss
